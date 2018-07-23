@@ -4,11 +4,19 @@ const mongoose = require('mongoose')
 
 const mongoDBUrl = 'mongodb://localhost:27017/mongo-for-monks';
 
-mongoose.connect(mongoDBUrl)
-mongoose.connection.once('open', ()=> console.log('Good to go'))
-.on('error', (error)=> {
-    console.warn('WARNING: '. error)
+mongoose.Promise = global.Promise;
+
+before((done) => {
+    
+    mongoose.connect(mongoDBUrl)
+    mongoose.connection.once('open', ()=> {
+        done();
+    })
+    .on('error', (error)=> {
+        console.warn('WARNING: '. error)
+    })
 })
+
 
 
 // Before each test
