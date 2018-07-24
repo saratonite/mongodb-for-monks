@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const assert = require('assert');
 const User = require('../src/user')
 
 describe('Reading users out database', () => {
@@ -23,5 +24,15 @@ describe('Reading users out database', () => {
                 done();
             })
 
+    })
+
+    it('Find a user with a paricular id ', (done) => {
+
+        User.findOne({ _id: joe._id})
+            .then(user => {
+
+                assert(user._id.toString() === joe._id.toString())
+                done();
+            })
     })
 })
