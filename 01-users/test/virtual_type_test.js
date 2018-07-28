@@ -16,7 +16,7 @@ describe('Virtual types ', () => {
         joe.save()
             .then(() => User.findOne({ name: 'Joe'}))
             .then(user => {
-                assert(user.postcount === 1);
+                assert(user.postCount === 1);
                 done();
             })
     })
