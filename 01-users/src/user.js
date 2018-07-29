@@ -12,9 +12,16 @@ const userSchema = new Schema({
         } 
     },
     viewCount: Number,
-    posts: [PostSchema]
+    posts: [PostSchema],
+    blogPosts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'blogPost'
+        }
+    ]
 })
 
+/** Virtual field */
 userSchema.virtual('postCount').get(function() {
     return this.posts.length;
 })

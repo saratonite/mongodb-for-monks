@@ -24,8 +24,22 @@ before((done) => {
 beforeEach((done) => {
     // Drop user collections
     mongoose.connection.collections.users.drop(() => {
-        done();
+
+        //
+        mongoose.connection.collections.blogposts.drop()
+            .then(() => {
+
+                mongoose.connection.collections.comments.drop()
+                    .then(() => {
+
+                        done();
+                    })
+
+            })
     });
+    
+
+
 
 
 })
