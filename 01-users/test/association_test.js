@@ -28,6 +28,7 @@ describe('Association ', () => {
             .then(() => {
                 done();
             })
+        .catch(() => console.log('Error > '))
 
 
     })

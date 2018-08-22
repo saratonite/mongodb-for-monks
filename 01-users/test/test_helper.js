@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 
 before((done) => {
     
-    mongoose.connect(mongoDBUrl)
+    mongoose.connect(mongoDBUrl,{ useNewUrlParser: true})
     mongoose.connection.once('open', ()=> {
         done();
     })
@@ -22,24 +22,31 @@ before((done) => {
 // Before each test
 
 beforeEach((done) => {
+
+
     // Drop user collections
-    mongoose.connection.collections.users.drop(() => {
+    mongoose.connection.collections.users.drop()
+    .then(() => {
 
-        //
         mongoose.connection.collections.blogposts.drop()
-            .then(() => {
+        .then(() => {
 
-                mongoose.connection.collections.comments.drop()
-                    .then(() => {
+            mongoose.connection.collections.comments.drop()
+                .then(() => {
 
-                        done();
-                    })
+                    done();
+                })
+                .catch(() => { console.log('>>> Error'); })
 
-            })
-    });
-    
+        })
+        .catch((e) => {console.log('>>Error', e); })
+    })
+    .catch((e) => {console.log('> Error ', e); done() })
 
 
 
 
 })
+
+
+
