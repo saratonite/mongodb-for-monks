@@ -15,7 +15,7 @@ describe('Read database ', () => {
   it('Read All Course', async function () {
     let courses = await Course.find({})
 
-    assert(courses[0].author, 'Brad')
+    assert.equal(courses[0].author, 'Mosh')
   })
 
   /**
@@ -24,7 +24,7 @@ describe('Read database ', () => {
   it('Read a single course', async function () {
     let course = await Course.findOne({ name: 'NodeJs Course' })
 
-    assert(course.name, 'NodeJs Course')
+    assert.equal(course.name, 'NodeJs Course')
   })
 
   /**
@@ -32,6 +32,6 @@ describe('Read database ', () => {
    */
   it('Read a singe document using findById', async function () {
     let course = await Course.findById(nodeCourse._id)
-    assert(course.name, 'NodeJs Course')
+    assert.equal(course.name, 'NodeJs Course')
   })
 })
