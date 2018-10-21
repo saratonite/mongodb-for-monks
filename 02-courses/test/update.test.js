@@ -37,7 +37,7 @@ describe('Update documents', () => {
 
   // using update method - ##### deprecated method
 
-  it('update document using update method', async function () {
+  it.skip('update document using update method', async function () {
     const result = await Course.update(
       { _id: reactCourse._id },
       {
