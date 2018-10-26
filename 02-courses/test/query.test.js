@@ -102,4 +102,41 @@ describe('Query docs', () => {
 
     assert.equal(courses.length, 2)
   })
+
+  it('Select courser where not tagged javascript', async function () {
+    const courses = await Course.find({ tags: { $nin: ['JavaScript'] } })
+    assert.equal(courses.length, 1)
+  })
+
+  // Logical operators
+  it('Get courses by Jeffrey Way or Not published', async function () {
+    const courses = await Course.find({}).or([
+      { author: 'Jeffrey Way' },
+      { isPublished: false }
+    ])
+
+    assert.equal(courses.length, 2)
+  })
+
+  // Regular expression
+
+  it('Get course match RegEx', async function () {
+    const courses = await Course.find({ author: /.*way.*/i })
+
+    assert.equal(courses[0].author, 'Jeffrey Way')
+  })
+
+  // Count result
+
+  it.skip('Count number of docs using count() method', async function () {
+    const count = await Course.find({ isPublished: true }).count()
+
+    assert.equal(count, 3)
+  })
+
+  it('Count number of docs using countDocuments()', async function () {
+    const count = await Course.find({ isPublished: true }).countDocuments()
+
+    assert.equal(count, 3)
+  })
 })
